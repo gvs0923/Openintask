@@ -1,45 +1,51 @@
-# This contains the code for the subtask with the attributes.
+# This is the subtask for the given assignment
 
-  package openin.assignment.model;
+
+package openin.assignment.model;
 
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
-
 @Entity
-@Table(name = "tasks")
-public class task {
-	
+@Table(name = "subtasks")
+
+public class subtask {
+
 	
 	 @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
-	    @NotBlank
-	    private String title;
+	    @ManyToOne
+	    @JoinColumn(name = "task_id", nullable = false)
+	    private Task task;
 
-	    @NotBlank
-	    private String description;
+	    private int status;
 
 	    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	    @Column(name = "due_date")
-	    private Date dueDate;
+	    @Column(name = "created_at")
+	    private Date createdAt;
+
+	    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	    @Column(name = "updated_at")
+	    private Date updatedAt;
+
+	    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	    @Column(name = "deleted_at")
+	    private Date deletedAt;
 
 	    
-	    public Task() {
+	    public SubTask() {
 	       
-	    }
 
-	    public Task(String title, String description, Date dueDate) {
-	        this.title = title;
-	        this.description = description;
-	        this.dueDate = dueDate;
-	       
+	    public SubTask(Task task, int status) {
+	        this.task = task;
+	        this.status = status;
+	        
 	    }
 
 	    // Getters and setters
@@ -51,37 +57,57 @@ public class task {
 	        this.id = id;
 	    }
 
-	    public String getTitle() {
-	        return title;
+	    public Task getTask() {
+	        return task;
 	    }
 
-	    public void setTitle(String title) {
-	        this.title = title;
+	    public void setTask(Task task) {
+	        this.task = task;
 	    }
 
-	    public String getDescription() {
-	        return description;
+	    public int getStatus() {
+	        return status;
 	    }
 
-	    public void setDescription(String description) {
-	        this.description = description;
+	    public void setStatus(int status) {
+	        this.status = status;
 	    }
 
-	    public Date getDueDate() {
-	        return dueDate;
+	    public Date getCreatedAt() {
+	        return createdAt;
 	    }
 
-	    public void setDueDate(Date dueDate) {
-	        this.dueDate = dueDate;
+	    public void setCreatedAt(Date createdAt) {
+	        this.createdAt = createdAt;
 	    }
+
+	    public Date getUpdatedAt() {
+	        return updatedAt;
+	    }
+
+	    public void setUpdatedAt(Date updatedAt) {
+	        this.updatedAt = updatedAt;
+	    }
+
+	    public Date getDeletedAt() {
+	        return deletedAt;
+	    }
+
+	    public void setDeletedAt(Date deletedAt) {
+	        this.deletedAt = deletedAt;
+	    }
+
 	    @Override
 	    public String toString() {
-	        return "Task{" +
+	        return "SubTask{" +
 	                "id=" + id +
-	                ", title='" + title + '\'' +
-	                ", description='" + description + '\'' +
-	                ", dueDate=" + dueDate +
+	                ", task=" + task +
+	                ", status=" + status +
+	                ", createdAt=" + createdAt +
+	                ", updatedAt=" + updatedAt +
+	                ", deletedAt=" + deletedAt +
 	                
 	                '}';
-      }
+	    }	
+	
 }
